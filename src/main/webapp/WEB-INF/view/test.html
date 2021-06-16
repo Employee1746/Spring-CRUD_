@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create form</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/create}" th:object="${user}">
+  <table border="1" cellpadding="4" cellspacing="0">
+    <tr>
+      <th>Enter</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Email</th>
+      <th colspan="2">Action</th>
+    </tr>
+    <tr th:each="user, state : ${users}">
+      <td th:utext="${state.count}">No</td>
+      <td th:utext="${user.name}">Name</td>
+      <td th:utext="${user.surname}">Surname</td>
+      <td th:utext="${user.email}">Email</td>
+      <td th:utext="Delete">Action</td>
+      <td th:utext="Update">Action</td>
+    </tr>
+  </table>
+
+
+
+
+
+
+
+  <label for="name">Enter name: </label>
+  <input type="text" th:field="*{name}" id="name"/>
+  <br/> <br/>
+  <label for="surname">Enter surname: </label>
+  <input type="text" th:field="*{surname}" id="surname"/>
+  <br/> <br/>
+  <label for="email">Enter email: </label>
+  <input type="text" th:field="*{email}" id="email"/>
+  <br/> <br/>
+  <input type="submit" value="Create!"/>
+</form>
+</body>
+</html>

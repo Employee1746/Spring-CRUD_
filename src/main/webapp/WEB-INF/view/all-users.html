@@ -4,28 +4,31 @@
     <meta charset="UTF-8">
     <title>All users</title>
     <style>
-        table th, table td {padding: 15px;}
+        table th, table td {
+            padding: 15px;
+        }
     </style>
 </head>
 <body>
 <h1>Users list</h1>
-<table border="2">
+<table border="1" cellpadding="4" cellspacing="0">
     <tr>
         <th>No</th>
         <th>Name</th>
         <th>Surname</th>
-        <th>Age</th>
         <th>Email</th>
-        <th>Profession</th>
+        <th colspan="2">Action</th>
     </tr>
-    <tr th:each="user, state : ${allUsers}">
+    <tr th:each="user, state : ${users}">
         <td th:utext="${state.count}">No</td>
         <td th:utext="${user.name}">Name</td>
         <td th:utext="${user.surname}">Surname</td>
-        <td th:utext="${user.age}">Age</td>
         <td th:utext="${user.email}">Email</td>
-        <td th:utext="${user.profession}">Profession</td>
+        <td th:utext="Delete">Action</td>
+        <td th:utext="Update">Action</td>
     </tr>
 </table>
+<br/>
+<input type="button" value="Add user" onclick="window.location.href='/users/create'"/>
 </body>
 </html>
