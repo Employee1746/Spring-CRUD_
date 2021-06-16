@@ -88,6 +88,7 @@ public class HibernateConfig {
 //        return jpaTransactionManager;
 //    }
 
+
                         //getSessionFactory
 //        @Bean
 //    public LocalSessionFactoryBean getSessionFactory() {

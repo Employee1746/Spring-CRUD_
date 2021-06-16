@@ -22,6 +22,16 @@ public class UserDaoImpl implements UserDao {
     public void saveUser(User user) {
         entityManager.persist(user);
     }
+
+    @Override
+    public void deleteUser(User user) {
+        entityManager.remove(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        entityManager.refresh(user);
+    }
 }
 //Через сессион фактори работает!!!
 //    @Override
