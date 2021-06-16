@@ -1,6 +1,5 @@
 package crud.config;
 
-import crud.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -8,11 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -78,33 +75,57 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean getLocalContainerEntityManagerFactoryBean() {
-        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactoryBean.setPackagesToScan("crud");
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
+        hibernateJpaVendorAdapter.setGenerateDdl(true);
+        hibernateJpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.MySQL8Dialect");
+        hibernateJpaVendorAdapter.setShowSql(true);
+        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean =
+                new LocalContainerEntityManagerFactoryBean();
+        entityManagerFactoryBean.setJpaVendorAdapter(hibernateJpaVendorAdapter);
         entityManagerFactoryBean.setDataSource(getDataSource());
-
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(true);
-        vendorAdapter.setShowSql(true);
-        entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
-
-        Properties props = new Properties();
-        props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-        entityManagerFactoryBean.setJpaProperties(props);
+        entityManagerFactoryBean.setPackagesToScan("crud");
         return entityManagerFactoryBean;
     }
 
     @Bean
-    public JpaTransactionManager getJpaTransactionManager() {
+    public PlatformTransactionManager transactionManager() {
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
-        jpaTransactionManager.setEntityManagerFactory(getLocalContainerEntityManagerFactoryBean()
-                .getNativeEntityManagerFactory());
+        jpaTransactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return jpaTransactionManager;
     }
-}
 
 //    @Bean
+//    public PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslationPostProcessor() {
+//        return new PersistenceExceptionTranslationPostProcessor();
+//    }
+
+//    @Bean
+//    public LocalContainerEntityManagerFactoryBean getLocalContainerEntityManagerFactoryBean() {
+//        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+//        entityManagerFactoryBean.setPackagesToScan("crud");
+//        entityManagerFactoryBean.setDataSource(getDataSource());
+//
+//        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+//        vendorAdapter.setGenerateDdl(true);
+//        vendorAdapter.setShowSql(true);
+//        entityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
+//
+//        Properties props = new Properties();
+//        props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+//        props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+//        entityManagerFactoryBean.setJpaProperties(props);
+//        return entityManagerFactoryBean;
+//    }
+//
+//    @Bean
+//    public JpaTransactionManager getJpaTransactionManager() {
+//        JpaTransactionManager jpaTransactionManager = new JpaTransactionManager();
+//        jpaTransactionManager.setEntityManagerFactory(getLocalContainerEntityManagerFactoryBean()
+//                .getNativeEntityManagerFactory());
+//        return jpaTransactionManager;
+//    }
+//        @Bean
 //    public LocalSessionFactoryBean getSessionFactory() {
 //        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
 //        factoryBean.setDataSource(getDataSource());
@@ -124,3 +145,5 @@ public class WebConfig implements WebMvcConfigurer {
 //        transactionManager.setSessionFactory(getSessionFactory().getObject());
 //        return transactionManager;
 //    }
+}
+

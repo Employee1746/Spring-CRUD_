@@ -5,6 +5,9 @@ import crud.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -23,8 +26,15 @@ public class UserController {
         return "all-users";
     }
 
-    @RequestMapping("/create")
-    public String createForm(User user) {
+    @GetMapping("/create")
+    public String createForm(@ModelAttribute("user") User user) {
         return "create-form";
+    }
+
+    @PostMapping()
+    public String createUser(@ModelAttribute("user") User user) {
+        System.out.println(user);
+        userService.saveUser(user);
+        return "redirect:/";
     }
 }
