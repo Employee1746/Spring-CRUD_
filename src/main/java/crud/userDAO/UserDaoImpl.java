@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@SuppressWarnings("ALL")
 @Repository
 public class UserDaoImpl implements UserDao {
 
@@ -23,32 +24,24 @@ public class UserDaoImpl implements UserDao {
         entityManager.persist(user);
     }
 
+//    public User userById(int id) {
+//        TypedQuery<User> q = entityManager.createQuery("select user from User user where user.id = :id", User.class);
+//        q.setParameter("id", id);
+//        User result = q.getResultList().stream().filter(user -> user.getId() == id).findAny().orElse(null);
+//        System.out.println(result);
+//        return result;
+//    }
+
     @Override
-    public void deleteUser(User user) {
+    public void deleteUser(Long id) {
+        User user = entityManager.find(User.class, id);
         entityManager.remove(user);
     }
 
     @Override
-    public void updateUser(User user) {
-        entityManager.refresh(user);
+    public void updateUser(Long id) {
+        //entityManager.refresh(id);
     }
 }
-//Через сессион фактори работает!!!
-//    @Override
-//    @SuppressWarnings("unchecked")
-//    public List<User> getAllUser() {
-//        TypedQuery<User> query = sessionFactory.getCurrentSession().createQuery("from User");
-//        return query.getResultList();
-//    }
-//
-//    @Autowired
-//    private SessionFactory sessionFactory;
-//
-//    @Override
-//    public void saveUser(User user) {
-//        System.out.println((user)+"user from dao");
-//        sessionFactory.getCurrentSession().save(user);
-//}
-
 
 
