@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update form</title>
+</head>
+<body>
+<h1>Update user</h1>
+<br/> <br/>
+<!--При нажатии action вызывается метод -->
+<form th:method="POST" th:action="@{/user-update}" th:object="${user}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br/> <br/>
+    <label for="surname">Enter surname: </label>
+    <input type="text" th:field="*{surname}" id="surname"/>
+    <br/> <br/>
+    <label for="email">Enter email: </label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <br/> <br/>
+    <input type="submit" value="Update"/>
+</form>
+</body>
+</html>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @SuppressWarnings("ALL")
@@ -24,13 +25,14 @@ public class UserDaoImpl implements UserDao {
         entityManager.persist(user);
     }
 
-//    public User userById(int id) {
-//        TypedQuery<User> q = entityManager.createQuery("select user from User user where user.id = :id", User.class);
-//        q.setParameter("id", id);
-//        User result = q.getResultList().stream().filter(user -> user.getId() == id).findAny().orElse(null);
-//        System.out.println(result);
-//        return result;
-//    }
+    @Override
+    public User userById(Long id) {
+        TypedQuery<User> query = entityManager.createQuery("select user from User user where user.id = :id", User.class);
+        query.setParameter("id", id);
+        User result = query.getResultList().stream().filter(user -> user.getId() == id).findAny().orElse(null);
+        System.out.println(result);
+        return result;
+    }
 
     @Override
     public void deleteUser(Long id) {

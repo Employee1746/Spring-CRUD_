@@ -24,8 +24,8 @@
         <td th:utext="${user.name}">Name</td>
         <td th:utext="${user.surname}">Surname</td>
         <td th:utext="${user.email}">Email</td>
-        <td> <a th:href="@{user-update/{id}(id=${user.id})}">Edit user</a></td>
-        <td> <a th:href="@{user-delete/{id}(id=${user.id})}">Delete user</a></td>
+        <td> <a th:href="@{user-update/{id}(id=${user.id})}"><input type="button" value="Update user" /></a></td>
+        <td> <a th:href="@{user-delete/{id}(id=${user.id})}"><input type="button" value="Delete user" /></a></td>
     </tr>
 </table>
 <br/>

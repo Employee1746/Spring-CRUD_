@@ -40,10 +40,24 @@ public class UserController {
     }
 
     @GetMapping("user-delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id){
+    public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/";
 
+    }
+
+    @GetMapping("user-update/{id}")
+    public String updateUserForm(@PathVariable("id") Long id, Model model) {
+        User user = userService.userById(id);
+        model.addAttribute("user", user); //юзер будет передан при помощи модели в форму
+        return "/user-update";
+    }
+
+    //id не нужен тк откуда-то получу данные
+    @PostMapping("/user-update")
+    public String updateUser(User user) {
+        userService.saveUser(user);
+        return "redirect:/";
     }
 }
 
