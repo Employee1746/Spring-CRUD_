@@ -20,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping()
+    @GetMapping()
     public String showAllUsers(Model model) {
         List<User> userList = userService.getAllUser();
         model.addAttribute("users", userList);
@@ -62,6 +62,4 @@ public class UserController {
         model.addAttribute("user", userService.userById(id));
         return "user-details";
     }
-
-
 }
