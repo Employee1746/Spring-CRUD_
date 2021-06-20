@@ -17,13 +17,14 @@
         <th>Name</th>
         <th>Surname</th>
         <th>Email</th>
-        <th colspan="2">Action</th>
+        <th colspan="3">Action</th>
     </tr>
     <tr th:each="user, state : ${users}">
         <td th:utext="${state.count}">No</td>
         <td th:utext="${user.name}">Name</td>
         <td th:utext="${user.surname}">Surname</td>
         <td th:utext="${user.email}">Email</td>
+        <td> <a th:href="@{user-details/{id}(id=${user.id})}"><input type="button" value="Details" /></a></td>
         <td> <a th:href="@{user-update/{id}(id=${user.id})}"><input type="button" value="Update user" /></a></td>
         <td> <a th:href="@{user-delete/{id}(id=${user.id})}"><input type="button" value="Delete user" /></a></td>
     </tr>
