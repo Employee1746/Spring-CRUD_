@@ -2,23 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update form</title>
+    <title>Update user</title>
 </head>
 <body>
 <h1>Update user</h1>
 <br/> <br/>
-<!--При нажатии action вызывается метод -->
-<form th:method="POST" th:action="@{/user-update}" th:object="${user}">
+<form action="#" th:method="POST" th:action="@{/user-update}" th:object="${user}">
+    <label for="id">Id: </label>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="id"/>
+    <br/> <br/>
     <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
+    <input type="text" th:field="*{name}" id="name" placeholder="Name"/>
     <br/> <br/>
     <label for="surname">Enter surname: </label>
-    <input type="text" th:field="*{surname}" id="surname"/>
+    <input type="text" th:field="*{surname}" id="surname" placeholder="Surname"/>
     <br/> <br/>
     <label for="email">Enter email: </label>
-    <input type="text" th:field="*{email}" id="email"/>
+    <input type="text" th:field="*{email}" id="email" placeholder="Email"/>
     <br/> <br/>
     <input type="submit" value="Update"/>
 </form>
 </body>
 </html>
+
+
+
+

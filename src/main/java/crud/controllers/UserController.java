@@ -29,12 +29,11 @@ public class UserController {
 
     @GetMapping("/create")
     public String createForm(@ModelAttribute("user") User user) {
-        return "create-form";
+        return "createUser-form";
     }
 
     @PostMapping()
     public String createUser(@ModelAttribute("user") User user) {
-        System.out.println(user);
         userService.saveUser(user);
         return "redirect:/";
     }
@@ -48,16 +47,13 @@ public class UserController {
 
     @GetMapping("user-update/{id}")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
-        User user = userService.userById(id);
-        model.addAttribute("user", user); //юзер будет передан при помощи модели в форму
+        model.addAttribute("user", userService.userById(id));
         return "/user-update";
     }
 
-    //id не нужен тк откуда-то получу данные
     @PostMapping("/user-update")
     public String updateUser(User user) {
-        userService.saveUser(user);
+        userService.updateUser(user);
         return "redirect:/";
     }
 }
-

@@ -30,7 +30,7 @@ public class UserDaoImpl implements UserDao {
         TypedQuery<User> query = entityManager.createQuery("select user from User user where user.id = :id", User.class);
         query.setParameter("id", id);
         User result = query.getResultList().stream().filter(user -> user.getId() == id).findAny().orElse(null);
-        System.out.println(result);
+        System.out.println("user из userById" + result);
         return result;
     }
 
@@ -41,8 +41,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updateUser(Long id) {
-        //entityManager.refresh(id);
+    public void updateUser(User user) {
+        System.out.println("user из updateUser" + user);
+        entityManager.merge(user);
     }
 }
 
