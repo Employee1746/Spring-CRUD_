@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 @SuppressWarnings("ALL")
@@ -26,12 +25,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User userById(Long id) {
-        TypedQuery<User> query = entityManager.createQuery("select user from User user where user.id = :id", User.class);
-        query.setParameter("id", id);
-        User result = query.getResultList().stream().filter(user -> user.getId() == id).findAny().orElse(null);
-        System.out.println("user из userById" + result);
-        return result;
+    public User getUserById(Long id) {
+        return entityManager.find(User.class, id);
     }
 
     @Override
@@ -42,7 +37,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void updateUser(User user) {
-        System.out.println("user из updateUser" + user);
         entityManager.merge(user);
     }
 }

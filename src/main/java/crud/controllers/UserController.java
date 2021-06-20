@@ -47,7 +47,7 @@ public class UserController {
 
     @GetMapping("user-update/{id}")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.userById(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "/user-update";
     }
 
@@ -59,7 +59,7 @@ public class UserController {
 
     @GetMapping("user-details/{id}")
     public String userDetails(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.userById(id));
+        model.addAttribute("user", userService.getUserById(id));
         return "user-details";
     }
 }
