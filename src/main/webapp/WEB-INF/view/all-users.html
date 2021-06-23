@@ -26,7 +26,7 @@
         <td th:utext="${user.email}">Email</td>
         <td> <a th:href="@{user-details/{id}(id=${user.id})}"><input type="button" value="Details" /></a></td>
         <td> <a th:href="@{user-update/{id}(id=${user.id})}"><input type="button" value="Update user" /></a></td>
-        <td> <a th:href="@{user-delete/{id}(id=${user.id})}"><input type="button" value="Delete user" /></a></td>
+        <td> <form th:method="DELETE" th:action="@{user-delete/{id}(id=${user.id})}"><input type="submit" value="Delete user"/></form></td>
     </tr>
 </table>
 <br/>

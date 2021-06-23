@@ -1,6 +1,6 @@
 package crud.userService;
 
-import crud.Model.User;
+import crud.model.User;
 import crud.userDAO.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

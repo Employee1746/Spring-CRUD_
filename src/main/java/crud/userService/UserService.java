@@ -1,6 +1,6 @@
 package crud.userService;
 
-import crud.Model.User;
+import crud.model.User;
 
 import java.util.List;
 

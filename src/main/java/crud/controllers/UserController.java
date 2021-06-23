@@ -1,6 +1,6 @@
 package crud.controllers;
 
-import crud.Model.User;
+import crud.model.User;
 import crud.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,11 +38,10 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("user-delete/{id}")
+    @DeleteMapping("user-delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteUser(id);
         return "redirect:/";
-
     }
 
     @GetMapping("user-update/{id}")
